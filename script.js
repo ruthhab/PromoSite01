@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initCTAButton();
     initFloatingEmojis();
     initAudioTeaser();
+    initSocialPosts();
     
     // Add a class to the body after a delay to trigger fade-in animations
     setTimeout(() => {
@@ -315,6 +316,64 @@ setInterval(() => {
     }
 }, 5000);
 
+// Initialize social media posts animations and interactions
+function initSocialPosts() {
+    const socialPosts = document.querySelectorAll('.social-post');
+    
+    socialPosts.forEach(post => {
+        // Add hover effect
+        post.addEventListener('mouseenter', () => {
+            post.style.transform = 'translateY(-5px)';
+            post.style.boxShadow = '0 5px 15px rgba(255, 51, 51, 0.2)';
+        });
+        
+        post.addEventListener('mouseleave', () => {
+            post.style.transform = 'translateY(0)';
+            post.style.boxShadow = 'none';
+        });
+        
+        // Add random glitch effect
+        setInterval(() => {
+            if (Math.random() > 0.95) {
+                post.classList.add('glitching');
+                setTimeout(() => {
+                    post.classList.remove('glitching');
+                }, 200);
+            }
+        }, 5000);
+        
+        // Add interaction for Instagram heart icon
+        const heartIcons = post.querySelectorAll('.heart-icon');
+        heartIcons.forEach(icon => {
+            icon.addEventListener('click', () => {
+                icon.style.backgroundImage = 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff3333"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>\')';
+                icon.classList.add('liked');
+                
+                // Add heart animation
+                const heart = document.createElement('div');
+                heart.classList.add('heart-animation');
+                heart.style.position = 'absolute';
+                heart.style.left = '50%';
+                heart.style.top = '50%';
+                heart.style.transform = 'translate(-50%, -50%)';
+                heart.style.color = 'var(--accent-color)';
+                heart.style.fontSize = '5rem';
+                heart.style.opacity = '0';
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = '10';
+                heart.style.animation = 'heartPop 0.8s forwards';
+                heart.innerHTML = '❤️';
+                
+                post.querySelector('.post-image') ? post.querySelector('.post-image').appendChild(heart) : post.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 800);
+            });
+        });
+    });
+}
+
 // Add CSS for dynamic elements
 const style = document.createElement('style');
 style.textContent = `
@@ -387,6 +446,25 @@ style.textContent = `
     section.in-view {
         opacity: 1;
         transform: translateY(0);
+    }
+    
+    @keyframes heartPop {
+        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+        20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+        40% { transform: translate(-50%, -50%) scale(0.9); }
+        60% { transform: translate(-50%, -50%) scale(1.1); }
+        80% { transform: translate(-50%, -50%) scale(1); }
+        100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
+    }
+    
+    .liked {
+        animation: heartBeat 0.3s ease;
+    }
+    
+    @keyframes heartBeat {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.3); }
+        100% { transform: scale(1); }
     }
 `;
 

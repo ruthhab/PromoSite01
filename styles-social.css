@@ -1,0 +1,369 @@
+/* Social Media Reactions Section */
+.social-reactions {
+    background-color: #0d0d0d;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-reactions::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255, 0, 0, 0.05), transparent 70%);
+    pointer-events: none;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 64px;
+    font-weight: 900;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3px;
+    background-color: var(--accent-color);
+}
+
+.social-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 34px;
+    max-width: 1456px;
+    margin: 0 auto;
+}
+
+.social-column {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.left-column, .right-column {
+    max-width: 499px;
+}
+
+.center-column {
+    max-width: 390px;
+}
+
+.social-post {
+    background-color: #0E141B;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    border: 1px solid #22272E;
+}
+
+.social-post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 51, 51, 0.2);
+}
+
+/* Twitter/X Post Styles */
+.twitter {
+    padding: 15px;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #444;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23666"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>');
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Profile pics for each user */
+.profile-pic.sarah-pic {
+    background-image: url('Hype/_01b1d0cf-c532-48ae-8e4b-822aba955b37.jpg');
+    background-size: cover;
+}
+
+.profile-pic.lucy-pic {
+    background-image: url('Hype/_32dc293e-fad8-49fb-a006-7982932db33d.jpg');
+    background-size: cover;
+}
+
+.profile-pic.sarah2-pic {
+    background-image: url('Hype/_01b1d0cf-c532-48ae-8e4b-822aba955b37.jpg');
+    background-size: cover;
+}
+
+.profile-pic.megan-pic {
+    background-image: url('Hype/_64bf030d-405d-411b-8233-3fc14405004b.jpg');
+    background-size: cover;
+}
+
+.profile-pic.lola-pic {
+    background-image: url('Hype/20250423_1314_Surprised Moviegoers_remix_01jsht7h0pfqeb5hpandmbec98.jpg');
+    background-size: cover;
+}
+
+.profile-pic.film-pic {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23666"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>');
+    background-color: #555;
+    background-size: 60%;
+}
+
+.profile-pic.rotten {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23E33232"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>');
+    background-color: #222;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.username {
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.handle, .date {
+    font-size: 0.8rem;
+    color: #7C7C7C;
+}
+
+.post-content {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--text-color);
+}
+
+.post-content p {
+    margin-bottom: 10px;
+}
+
+.post-content p.highlight {
+    color: #4D7CFF;
+    font-weight: 600;
+}
+
+.post-image {
+    width: 100%;
+    height: 180px;
+    background-color: #333;
+    border-radius: 8px;
+    margin: 10px 0;
+    background-image: linear-gradient(45deg, #333 25%, #3a3a3a 25%, #3a3a3a 50%, #333 50%, #333 75%, #3a3a3a 75%, #3a3a3a);
+    background-size: 20px 20px;
+    position: relative;
+}
+
+.post-image.rt-poster {
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ff3333;
+    text-align: center;
+}
+
+.read-receipt-text {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: var(--font-mono);
+}
+
+.read-text {
+    font-size: 16px;
+    font-style: italic;
+}
+
+.post-image.rt-image {
+    background-image: url('Hype/20250423_1140_Social Media Buzz_simple_compose_01jshms6krfxbszd91pc49zmkt.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.post-image.megan-image {
+    background-image: linear-gradient(45deg, #113311 25%, #113a11 25%, #113a11 50%, #113311 50%, #113311 75%, #113a11 75%, #113a11);
+}
+
+.post-stats {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #6D6D6D;
+    font-size: 0.8rem;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.comment-icon {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%236D6D6D"><path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>');
+}
+
+.retweet-icon {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%236D6D6D"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>');
+}
+
+.like-icon {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%236D6D6D"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+}
+
+.view-icon {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%236D6D6D"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>');
+}
+
+.share-icon-twitter {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%236D6D6D"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>');
+}
+
+/* Instagram Post Styles */
+.instagram {
+    display: flex;
+    flex-direction: column;
+}
+
+.instagram .post-header {
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.instagram .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.more-options {
+    width: 20px;
+    height: 20px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFFFFF"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.post-image.insta-image {
+    height: 300px;
+    margin: 0;
+    border-radius: 0;
+    background-image: url('Hype/20250423_1314_Surprised Moviegoers_remix_01jsht7h0pfqeb5hpandmbec98.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.post-image.insta-image-2 {
+    height: 300px;
+    margin: 0;
+    border-radius: 0;
+    background-image: url('Hype/20250423_1140_Social Media Buzz_simple_compose_01jshms6krfxbszd91pc49zmkt.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.heart-icon {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFFFFF"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+}
+
+.share-icon {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFFFFF"><path d="M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"/></svg>');
+}
+
+.save-icon {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFFFFF"><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>');
+}
+
+.post-details {
+    padding: 10px 15px;
+}
+
+.likes {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.caption {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
+
+.post-date {
+    font-size: 0.8rem;
+    color: #969696;
+    margin-top: 5px;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .social-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .center-column {
+        grid-column: span 2;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .social-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .center-column {
+        grid-column: span 1;
+    }
+    
+    .left-column, .right-column, .center-column {
+        max-width: 100%;
+    }
+}
