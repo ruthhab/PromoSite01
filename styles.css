@@ -126,10 +126,10 @@ img {
     align-items: center;
     text-align: center;
     position: relative;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('AI teaser.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('AI teaser copy.jpg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    /* Removed background-attachment: fixed to keep the background static */
 }
 
 .hero-content {
@@ -471,13 +471,22 @@ img {
 .character {
     position: relative;
     overflow: hidden;
-    border-radius: 5px;
-    background-color: var(--secondary-color);
-    transition: transform 0.3s ease;
+    border-radius: 10px;
+    background: linear-gradient(145deg, rgba(51, 51, 51, 0.3), rgba(30, 30, 30, 0.5));
+    backdrop-filter: blur(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 51, 51, 0.2);
+    border: 1px solid rgba(255, 51, 51, 0.1);
+    transition: all 0.5s ease;
+    animation: floatingBox 7s ease-in-out infinite;
+}
+
+.character:nth-child(2) {
+    animation-delay: 1.5s;
 }
 
 .character:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px) rotate(1deg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 51, 51, 0.3);
 }
 
 .character-image {
@@ -594,10 +603,19 @@ img {
     max-width: 600px;
     margin: 0 auto 40px;
     padding: 20px;
-    background-color: var(--secondary-color);
-    border-radius: 5px;
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+    background: linear-gradient(145deg, rgba(51, 51, 51, 0.3), rgba(30, 30, 30, 0.5));
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 51, 51, 0.2);
+    border: 1px solid rgba(255, 51, 51, 0.1);
     overflow: hidden;
+    animation: floatingBox 9s ease-in-out infinite;
+    transition: all 0.5s ease;
+}
+
+.audio-player-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 51, 51, 0.3);
 }
 
 .audio-player {
@@ -683,10 +701,23 @@ img {
 .component {
     margin-bottom: 40px;
     padding: 20px;
-    background-color: var(--secondary-color);
-    border-radius: 5px;
+    background: linear-gradient(145deg, rgba(51, 51, 51, 0.3), rgba(30, 30, 30, 0.5));
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 51, 51, 0.2);
+    border: 1px solid rgba(255, 51, 51, 0.1);
+    animation: floatingBox 8s ease-in-out infinite;
+    transition: all 0.5s ease;
+}
+
+.component:nth-child(2) {
+    animation-delay: 1.5s;
+}
+
+.component:nth-child(3) {
+    animation-delay: 3s;
 }
 
 .component::before {
@@ -697,6 +728,7 @@ img {
     width: 3px;
     height: 100%;
     background-color: var(--accent-color);
+    box-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
 }
 
 .component h4 {
@@ -709,14 +741,35 @@ img {
 .prompt {
     margin-bottom: 20px;
     padding: 15px;
-    background-color: var(--message-color);
-    border-radius: 5px;
+    background: linear-gradient(145deg, rgba(42, 42, 42, 0.5), rgba(25, 25, 25, 0.7));
+    border-radius: 8px;
     position: relative;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 51, 51, 0.1);
+    border: 1px solid rgba(255, 51, 51, 0.05);
+    animation: promptFloat 7s ease-in-out infinite;
+}
+
+.prompt:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.prompt:nth-child(3) {
+    animation-delay: 2s;
 }
 
 .prompt:hover {
-    transform: translateX(5px);
+    transform: translateY(-5px) translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 51, 51, 0.2);
+}
+
+@keyframes promptFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(-0.5deg);
+    }
+    50% {
+        transform: translateY(-7px) rotate(0.5deg);
+    }
 }
 
 .prompt h5 {
@@ -786,11 +839,30 @@ img {
 }
 
 .quote-box {
-    background-color: var(--secondary-color);
+    background: linear-gradient(145deg, rgba(51, 51, 51, 0.3), rgba(30, 30, 30, 0.5));
+    backdrop-filter: blur(5px);
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 51, 51, 0.2);
+    border: 1px solid rgba(255, 51, 51, 0.1);
+    transform-style: preserve-3d;
+    animation: floatingBox 6s ease-in-out infinite;
+    transition: all 0.5s ease;
+}
+
+.quote-box:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.quote-box:nth-child(3) {
+    animation-delay: 2s;
+}
+
+.quote-box:hover {
+    transform: translateY(-10px) rotate(1deg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 51, 51, 0.3);
 }
 
 .quote-box::before {
@@ -800,7 +872,17 @@ img {
     left: 10px;
     font-size: 8rem;
     color: var(--accent-color);
-    opacity: 0.1;
+    opacity: 0.15;
+    text-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
+}
+
+@keyframes floatingBox {
+    0%, 100% {
+        transform: translateY(0) rotate(-1deg);
+    }
+    50% {
+        transform: translateY(-15px) rotate(1deg);
+    }
 }
 
 .quote-box p {
@@ -868,7 +950,7 @@ img {
 }
 
 .cta-button {
-    background-color: var(--accent-color);
+    background: linear-gradient(145deg, var(--accent-color), var(--highlight-color));
     color: var(--dark-bg);
     border: none;
     padding: 15px 30px;
@@ -879,16 +961,134 @@ img {
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
+    border-radius: 5px;
+    box-shadow: 
+        0 4px 0 #aa1111,
+        0 5px 10px rgba(0, 0, 0, 0.3),
+        0 0 15px rgba(255, 51, 51, 0.5);
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: skewX(-20deg);
+    transition: all 0.5s ease;
 }
 
 .cta-button:hover {
-    background-color: var(--highlight-color);
-    transform: scale(1.05);
+    background: linear-gradient(145deg, var(--highlight-color), var(--accent-color));
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 0 #aa1111,
+        0 12px 15px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(255, 51, 51, 0.6);
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="%23ff3333"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>'), pointer;
+}
+
+.cta-button:hover::before {
+    left: 100%;
 }
 
 .cta-button:active {
-    transform: scale(0.95);
+    transform: translateY(4px);
+    box-shadow: 
+        0 2px 0 #aa1111,
+        0 4px 6px rgba(0, 0, 0, 0.4),
+        0 0 10px rgba(255, 51, 51, 0.5);
+    transition: all 0.1s ease;
+}
+
+/* Pulsing animation for button */
+.pulse-animation {
+    animation: buttonPulse 2s infinite;
+}
+
+@keyframes buttonPulse {
+    0% {
+        box-shadow: 
+            0 6px 0 #aa1111,
+            0 8px 10px rgba(0, 0, 0, 0.4),
+            0 0 15px rgba(255, 51, 51, 0.5);
+    }
+    50% {
+        box-shadow: 
+            0 6px 0 #aa1111,
+            0 8px 15px rgba(0, 0, 0, 0.4),
+            0 0 25px rgba(255, 51, 51, 0.7);
+    }
+    100% {
+        box-shadow: 
+            0 6px 0 #aa1111,
+            0 8px 10px rgba(0, 0, 0, 0.4),
+            0 0 15px rgba(255, 51, 51, 0.5);
+    }
+}
+
+/* Hover glow effect */
+.hover-glow {
+    box-shadow: 
+        0 8px 0 #aa1111,
+        0 12px 15px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(255, 51, 51, 0.8);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Explosion particles */
+.explosion-particle {
+    position: fixed;
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+@keyframes explode {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--end-x), var(--end-y)) scale(0);
+        opacity: 0;
+    }
 }
 
 .frantic-messages {
-    position
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block; /* Show by default instead of being hidden */
+    z-index: 5;
+}
+
+.message {
+    position: absolute;
+    background-color: var(--bubble-color);
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: 15px;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.5s ease;
+    animation: floatMessage 5s infinite ease-in-out;
+}
+
+@keyframes floatMessage {
+    0%, 100% {
+        transform: translateY(0) rotate(-1deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(1deg);
+    }
+}

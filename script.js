@@ -34,26 +34,30 @@ function initScrollAnimations() {
     // Get all sections for scroll animations
     const sections = document.querySelectorAll('section');
     
-    // Create an Intersection Observer
+    // Create an Intersection Observer with improved threshold for smoother transitions
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             // Add 'in-view' class when section is visible
             if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
-                
-                // Trigger typing indicators when in view
-                if (entry.target.querySelector('.typing-indicator')) {
-                    const indicators = entry.target.querySelectorAll('.typing-indicator');
-                    indicators.forEach((indicator, index) => {
-                        setTimeout(() => {
-                            indicator.classList.add('typing');
-                        }, index * 1000);
-                    });
-                }
+                // Add a small delay for a smoother entrance effect
+                setTimeout(() => {
+                    entry.target.classList.add('in-view');
+                    
+                    // Trigger typing indicators when in view
+                    if (entry.target.querySelector('.typing-indicator')) {
+                        const indicators = entry.target.querySelectorAll('.typing-indicator');
+                        indicators.forEach((indicator, index) => {
+                            setTimeout(() => {
+                                indicator.classList.add('typing');
+                            }, index * 1000);
+                        });
+                    }
+                }, 150);
             }
         });
     }, {
-        threshold: 0.1 // Trigger when at least 10% of the element is visible
+        threshold: 0.15, // Slightly higher threshold for smoother transitions
+        rootMargin: "0px 0px -10% 0px" // Trigger slightly before the element is fully in view
     });
     
     // Observe each section
@@ -61,25 +65,32 @@ function initScrollAnimations() {
         observer.observe(section);
     });
     
-    // Add scroll event for parallax effects
+    // Add scroll event for parallax effects with smoother transitions
     window.addEventListener('scroll', () => {
         const scrollPosition = window.scrollY;
         
-        // Parallax effect for hero section
+        // Smoother parallax effect for hero section
         const hero = document.querySelector('.hero');
         if (hero) {
-            hero.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+            // Use requestAnimationFrame for smoother animation
+            requestAnimationFrame(() => {
+                hero.style.backgroundPositionY = scrollPosition * 0.3 + 'px'; // Reduced multiplier for smoother effect
+            });
         }
         
-        // Parallax effect for CTA section
+        // Smoother parallax effect for CTA section
         const cta = document.querySelector('.cta');
         if (cta) {
-            cta.style.backgroundPositionY = (scrollPosition - cta.offsetTop) * 0.2 + 'px';
+            requestAnimationFrame(() => {
+                cta.style.backgroundPositionY = (scrollPosition - cta.offsetTop) * 0.15 + 'px'; // Reduced multiplier
+            });
         }
         
-        // Create crumbling effect as user scrolls
-        createCrumblingEffect(scrollPosition);
-    });
+        // Create crumbling effect as user scrolls, but less frequently for smoother experience
+        if (Math.random() > 0.995) { // Reduced frequency
+            createCrumblingEffect(scrollPosition);
+        }
+    }, { passive: true }); // Add passive flag for better performance
 }
 
 // Create visual "crumbling" effect as the user scrolls
@@ -108,40 +119,48 @@ function initCTAButton() {
     const franticMessages = document.getElementById('frantic-messages');
     
     if (ctaButton && franticMessages) {
-        // Show frantic messages on hover
-        ctaButton.addEventListener('mouseenter', () => {
-            franticMessages.style.display = 'block';
+        // Add pulsing animation to make button more clickable
+        ctaButton.classList.add('pulse-animation');
+        
+        // Position and show frantic messages immediately on page load
+        const messages = franticMessages.querySelectorAll('.message');
+        messages.forEach((message, index) => {
+            // Position messages randomly around the button
+            const angle = (index / messages.length) * Math.PI * 2;
+            const distance = 80 + Math.random() * 40;
+            const x = Math.cos(angle) * distance;
+            const y = Math.sin(angle) * distance;
             
-            // Animate each message
-            const messages = franticMessages.querySelectorAll('.message');
-            messages.forEach((message, index) => {
-                // Position messages randomly around the button
-                const angle = (index / messages.length) * Math.PI * 2;
-                const distance = 80 + Math.random() * 40;
-                const x = Math.cos(angle) * distance;
-                const y = Math.sin(angle) * distance;
-                
-                message.style.transform = `translate(${x}px, ${y}px)`;
-                
-                // Fade in with delay
-                setTimeout(() => {
-                    message.style.opacity = '1';
-                }, index * 200);
-            });
+            message.style.transform = `translate(${x}px, ${y}px)`;
+            
+            // Fade in with delay
+            setTimeout(() => {
+                message.style.opacity = '0.7'; // Start with partial opacity
+            }, index * 200);
         });
         
-        // Hide messages on mouse leave
-        ctaButton.addEventListener('mouseleave', () => {
-            // Fade out messages
-            const messages = franticMessages.querySelectorAll('.message');
+        // Enhance hover effect
+        ctaButton.addEventListener('mouseenter', () => {
+            // Increase opacity and animation intensity on hover
             messages.forEach(message => {
-                message.style.opacity = '0';
+                message.style.opacity = '1';
+                message.style.animationDuration = '3s'; // Faster animation
             });
             
-            // Hide container after animation
-            setTimeout(() => {
-                franticMessages.style.display = 'none';
-            }, 500);
+            // Add glow effect on hover
+            ctaButton.classList.add('hover-glow');
+        });
+        
+        // Restore normal state on mouse leave
+        ctaButton.addEventListener('mouseleave', () => {
+            // Return to partial opacity
+            messages.forEach(message => {
+                message.style.opacity = '0.7';
+                message.style.animationDuration = '5s'; // Normal animation speed
+            });
+            
+            // Remove glow effect
+            ctaButton.classList.remove('hover-glow');
         });
         
         // Button click effect
@@ -152,21 +171,35 @@ function initCTAButton() {
             // Show frantic messages on click too
             franticMessages.style.display = 'block';
             
-            // Animate each message
+            // Create explosion effect
+            createExplosionEffect(ctaButton);
+            
+            // Animate each message with dispersion effect
             const messages = franticMessages.querySelectorAll('.message');
             messages.forEach((message, index) => {
-                // Position messages randomly around the button
-                const angle = (index / messages.length) * Math.PI * 2;
-                const distance = 80 + Math.random() * 40;
-                const x = Math.cos(angle) * distance;
-                const y = Math.sin(angle) * distance;
+                // Calculate random direction for dispersion
+                const randomAngle = Math.random() * Math.PI * 2;
+                const randomDistance = 300 + Math.random() * 200; // Larger distance for dispersion
+                const randomX = Math.cos(randomAngle) * randomDistance;
+                const randomY = Math.sin(randomAngle) * randomDistance;
                 
-                message.style.transform = `translate(${x}px, ${y}px)`;
+                // Random rotation for more chaotic effect
+                const randomRotation = (Math.random() - 0.5) * 60;
                 
-                // Fade in with delay
+                // Apply dispersion with varying speeds
+                const speed = 0.5 + Math.random() * 0.5;
+                message.style.transition = `transform ${speed}s cubic-bezier(0.165, 0.84, 0.44, 1), opacity ${speed}s ease`;
+                message.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${randomRotation}deg)`;
+                
+                // Fade in briefly then out with delay
                 setTimeout(() => {
                     message.style.opacity = '1';
-                }, index * 200);
+                    
+                    // Fade out after brief appearance
+                    setTimeout(() => {
+                        message.style.opacity = '0';
+                    }, 300 + Math.random() * 200);
+                }, index * 50); // Shorter delay for more immediate reaction
             });
             
             // Show typing indicator
@@ -185,18 +218,79 @@ function initCTAButton() {
                 ctaButton.classList.remove('shake');
             }, 500);
             
-            // Hide messages after a few seconds
+            // Reset messages after animation completes
             setTimeout(() => {
-                messages.forEach(message => {
-                    message.style.opacity = '0';
-                });
-                
                 // Hide container after animation
+                franticMessages.style.display = 'none';
+                
+                // Reset message positions for next interaction
                 setTimeout(() => {
-                    franticMessages.style.display = 'none';
-                }, 500);
-            }, 4000);
+                    messages.forEach((message, index) => {
+                        const angle = (index / messages.length) * Math.PI * 2;
+                        const distance = 80 + Math.random() * 40;
+                        const x = Math.cos(angle) * distance;
+                        const y = Math.sin(angle) * distance;
+                        
+                        message.style.transition = 'none';
+                        message.style.transform = `translate(${x}px, ${y}px)`;
+                        message.style.opacity = '0';
+                        
+                        // Reset transition after position is set
+                        setTimeout(() => {
+                            message.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+                        }, 50);
+                    });
+                    
+                    // Show messages again
+                    franticMessages.style.display = 'block';
+                    
+                    // Fade messages back in with delay
+                    messages.forEach((message, index) => {
+                        setTimeout(() => {
+                            message.style.opacity = '0.7';
+                        }, index * 200 + 100);
+                    });
+                }, 1000);
+            }, 2000);
         });
+    }
+}
+
+// Create explosion particle effect
+function createExplosionEffect(button) {
+    const rect = button.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Create particles
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('explosion-particle');
+        
+        // Random position, size and color
+        const size = Math.random() * 8 + 4;
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 100 + 50;
+        const duration = Math.random() * 0.6 + 0.4;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${centerX}px`;
+        particle.style.top = `${centerY}px`;
+        particle.style.backgroundColor = `hsl(${Math.random() * 20 + 350}, 100%, 50%)`;
+        particle.style.boxShadow = `0 0 ${size}px hsl(${Math.random() * 20 + 350}, 100%, 50%)`;
+        particle.style.animation = `explode ${duration}s forwards cubic-bezier(0.165, 0.84, 0.44, 1)`;
+        
+        // Set final position for animation
+        particle.style.setProperty('--end-x', `${Math.cos(angle) * distance}px`);
+        particle.style.setProperty('--end-y', `${Math.sin(angle) * distance}px`);
+        
+        document.body.appendChild(particle);
+        
+        // Remove particle after animation
+        setTimeout(() => {
+            particle.remove();
+        }, duration * 1000);
     }
 }
 

@@ -208,7 +208,10 @@
 }
 
 .post-image.megan-image {
-    background-image: linear-gradient(45deg, #113311 25%, #113a11 25%, #113a11 50%, #113311 50%, #113311 75%, #113a11 75%, #113a11);
+    background-image: url('Hype/_01b1d0cf-c532-48ae-8e4b-822aba955b37.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 300px; /* Make it the same height as Instagram images for consistency */
 }
 
 .post-stats {
